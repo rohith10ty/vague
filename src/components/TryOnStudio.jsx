@@ -22,8 +22,9 @@ const products = [
     modelImage: "/model/model-watch.webp",
     accent: "#F0C020",
     hotspot: {
-      dot: { top: "39%", left: "58%" },
-      card: { top: "24%", left: "67%" },
+      anchor: { x: 56, y: 43 },
+      linePath: "M 56 43 L 64 34 L 68 34",
+      card: { top: "25%", left: "68%" },
     },
   },
   {
@@ -44,8 +45,9 @@ const products = [
     modelImage: "/model/model-handbag.webp",
     accent: "#1040C0",
     hotspot: {
-      dot: { top: "64%", left: "31%" },
-      card: { top: "45%", left: "10%" },
+      anchor: { x: 31, y: 63 },
+      linePath: "M 31 63 L 28 54 L 25 54",
+      card: { top: "45%", left: "7%" },
     },
   },
   {
@@ -66,8 +68,9 @@ const products = [
     modelImage: "/model/model-sunglasses.webp",
     accent: "#1040C0",
     hotspot: {
-      dot: { top: "35%", left: "50%" },
-      card: { top: "18%", left: "62%" },
+      anchor: { x: 50, y: 36 },
+      linePath: "M 50 36 L 58 26 L 64 26",
+      card: { top: "18%", left: "64%" },
     },
   },
   {
@@ -88,8 +91,9 @@ const products = [
     modelImage: "/model/model-shoes.webp",
     accent: "#D02020",
     hotspot: {
-      dot: { top: "85%", left: "47%" },
-      card: { top: "66%", left: "58%" },
+      anchor: { x: 47, y: 84 },
+      linePath: "M 47 84 L 54 74 L 60 74",
+      card: { top: "66%", left: "60%" },
     },
   },
 ];
@@ -602,19 +606,42 @@ function TryOnStudio() {
                     transition={{ duration: 0.3 }}
                     className="pointer-events-auto absolute inset-0 z-30"
                   >
-                    {/* Pulsing indicator dot on item location */}
-                    <div
-                      style={{
-                        top: activeProduct.hotspot.dot.top,
-                        left: activeProduct.hotspot.dot.left,
-                      }}
-                      className="absolute -translate-x-1/2 -translate-y-1/2"
+                    {/* Bauhaus Leader Line & Anchor on Product */}
+                    <svg
+                      className="pointer-events-none absolute inset-0 h-full w-full z-20"
+                      viewBox="0 0 100 100"
+                      preserveAspectRatio="none"
                     >
-                      <span className="absolute -inset-2 block rounded-full border-2 border-vague-black bg-vague-yellow/60 animate-ping" />
-                      <span className="relative flex h-3.5 w-3.5 items-center justify-center rounded-full border-2 border-vague-black bg-vague-yellow shadow-[1.5px_1.5px_0_#121212]">
-                        <span className="h-1 w-1 rounded-full bg-vague-black" />
-                      </span>
-                    </div>
+                      {/* Solid Connecting Line */}
+                      <path
+                        d={activeProduct.hotspot.linePath}
+                        fill="none"
+                        stroke="#121212"
+                        strokeWidth="0.6"
+                        strokeLinecap="square"
+                        strokeLinejoin="miter"
+                      />
+
+                      {/* Accent Line Highlight */}
+                      <path
+                        d={activeProduct.hotspot.linePath}
+                        fill="none"
+                        stroke={activeProduct.accent || "#F0C020"}
+                        strokeWidth="0.3"
+                        strokeDasharray="1 1"
+                      />
+
+                      {/* Solid Anchor Mark on Product */}
+                      <rect
+                        x={activeProduct.hotspot.anchor.x - 0.75}
+                        y={activeProduct.hotspot.anchor.y - 0.75}
+                        width="1.5"
+                        height="1.5"
+                        fill={activeProduct.accent || "#F0C020"}
+                        stroke="#121212"
+                        strokeWidth="0.4"
+                      />
+                    </svg>
 
                     {/* Floating Product Name & Price Badge */}
                     <motion.div
