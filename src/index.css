@@ -1,0 +1,248 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap");
+@import "tailwindcss";
+
+@source "./";
+
+@theme {
+  --font-outfit: "Outfit", sans-serif;
+
+  --color-vague-bg: #f0f0f0;
+  --color-vague-black: #121212;
+  --color-vague-red: #d02020;
+  --color-vague-blue: #1040c0;
+  --color-vague-yellow: #f0c020;
+  --color-vague-muted: #e0e0e0;
+  --color-vague-white: #ffffff;
+}
+
+:root {
+  font-family: "Outfit", sans-serif;
+
+  color: #121212;
+  background: #f0f0f0;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --background: #f0f0f0;
+  --foreground: #121212;
+
+  --red: #d02020;
+  --blue: #1040c0;
+  --yellow: #f0c020;
+
+  --muted: #e0e0e0;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--background);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+
+  font-family: "Outfit", sans-serif;
+
+  background: var(--background);
+  color: var(--foreground);
+
+  overflow-x: hidden;
+}
+
+body,
+button,
+input,
+textarea,
+select {
+  font-family: "Outfit", sans-serif;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: var(--yellow);
+  color: var(--foreground);
+}
+
+/* -------------------------------- */
+/* Scrollbar                         */
+/* -------------------------------- */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+  border-left: 2px solid var(--foreground);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--red);
+  border: 2px solid var(--foreground);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--blue);
+}
+
+/* -------------------------------- */
+/* Reusable Bauhaus styles           */
+/* -------------------------------- */
+
+.bauhaus-border {
+  border: 3px solid var(--foreground);
+}
+
+.bauhaus-shadow-sm {
+  box-shadow: 4px 4px 0 var(--foreground);
+}
+
+.bauhaus-shadow {
+  box-shadow: 6px 6px 0 var(--foreground);
+}
+
+.bauhaus-shadow-lg {
+  box-shadow: 8px 8px 0 var(--foreground);
+}
+
+.bauhaus-button {
+  border: 3px solid var(--foreground);
+
+  box-shadow: 5px 5px 0 var(--foreground);
+
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+
+  transition:
+    transform 200ms ease-out,
+    box-shadow 200ms ease-out,
+    background-color 200ms ease-out,
+    color 200ms ease-out;
+}
+
+.bauhaus-button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 var(--foreground);
+}
+
+.bauhaus-button:active {
+  transform: translate(4px, 4px);
+  box-shadow: 1px 1px 0 var(--foreground);
+}
+
+/* -------------------------------- */
+/* Geometric helpers                 */
+/* -------------------------------- */
+
+.shape-circle {
+  border-radius: 9999px;
+}
+
+.shape-square {
+  border-radius: 0;
+}
+
+.shape-triangle {
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+/* -------------------------------- */
+/* Bauhaus dotted background         */
+/* -------------------------------- */
+
+.bauhaus-dots {
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.25) 2px,
+    transparent 2px
+  );
+
+  background-size: 20px 20px;
+}
+
+/* -------------------------------- */
+/* Section defaults                  */
+/* -------------------------------- */
+
+.vague-section {
+  position: relative;
+
+  border-bottom: 4px solid var(--foreground);
+
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .vague-section {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .vague-section {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* -------------------------------- */
+/* Heading treatment                 */
+/* -------------------------------- */
+
+.vague-display {
+  font-weight: 900;
+
+  text-transform: uppercase;
+
+  letter-spacing: -0.06em;
+
+  line-height: 0.88;
+}
+
+/* -------------------------------- */
+/* Product image behaviour           */
+/* -------------------------------- */
+
+.vague-product-image {
+  filter: grayscale(100%);
+
+  transition:
+    filter 300ms ease-out,
+    transform 300ms ease-out;
+}
+
+.group:hover .vague-product-image {
+  filter: grayscale(0%);
+  transform: scale(1.04);
+}
