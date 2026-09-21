@@ -21,11 +21,6 @@ const products = [
     image: "/model/watch.webp",
     modelImage: "/model/model-watch.webp",
     accent: "#F0C020",
-    hotspot: {
-      anchor: { x: 56, y: 43 },
-      linePath: "M 56 43 L 64 34 L 68 34",
-      card: { top: "25%", left: "68%" },
-    },
   },
   {
     id: 2,
@@ -44,11 +39,6 @@ const products = [
     image: "/model/handbag.webp",
     modelImage: "/model/model-handbag.webp",
     accent: "#1040C0",
-    hotspot: {
-      anchor: { x: 31, y: 63 },
-      linePath: "M 31 63 L 28 54 L 25 54",
-      card: { top: "45%", left: "7%" },
-    },
   },
   {
     id: 6,
@@ -67,11 +57,6 @@ const products = [
     image: "/model/sunglasses.webp",
     modelImage: "/model/model-sunglasses.webp",
     accent: "#1040C0",
-    hotspot: {
-      anchor: { x: 50, y: 36 },
-      linePath: "M 50 36 L 58 26 L 64 26",
-      card: { top: "18%", left: "64%" },
-    },
   },
   {
     id: 5,
@@ -90,11 +75,6 @@ const products = [
     image: "/model/shoes.webp",
     modelImage: "/model/model-shoes.webp",
     accent: "#D02020",
-    hotspot: {
-      anchor: { x: 47, y: 84 },
-      linePath: "M 47 84 L 54 74 L 60 74",
-      card: { top: "66%", left: "60%" },
-    },
   },
 ];
 
@@ -595,120 +575,74 @@ function TryOnStudio() {
                 />
               </AnimatePresence>
 
-              {/* PRODUCT HOTSPOT & PRICE TAG ON MODEL */}
+              {/* SELECTED PRODUCT CARD IN BOTTOM-RIGHT OF IMAGE */}
               <AnimatePresence>
-                {activeProduct && activeProduct.hotspot && (
+                {activeProduct && (
                   <motion.div
-                    key={`hotspot-${activeProduct.id}`}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="pointer-events-auto absolute inset-0 z-30"
+                    key={`card-${activeProduct.id}`}
+                    initial={{ opacity: 0, y: 10, scale: 0.94 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 8, scale: 0.94 }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
+                    className="
+                      bauhaus-shadow
+                      absolute
+                      bottom-3.5
+                      right-3.5
+                      z-30
+                      w-auto
+                      min-w-[145px]
+                      max-w-[195px]
+                      border-[2.5px]
+                      border-vague-black
+                      bg-white
+                      p-2
+                      sm:bottom-4
+                      sm:right-4
+                      sm:min-w-[165px]
+                      sm:p-2.5
+                    "
                   >
-                    {/* Bauhaus Leader Line & Anchor on Product */}
-                    <svg
-                      className="pointer-events-none absolute inset-0 h-full w-full z-20"
-                      viewBox="0 0 100 100"
-                      preserveAspectRatio="none"
-                    >
-                      {/* Solid Connecting Line */}
-                      <path
-                        d={activeProduct.hotspot.linePath}
-                        fill="none"
-                        stroke="#121212"
-                        strokeWidth="0.6"
-                        strokeLinecap="square"
-                        strokeLinejoin="miter"
-                      />
+                    <div className="flex items-center justify-between border-b border-vague-black/20 pb-1">
+                      <span className="text-[7px] font-black uppercase tracking-[0.16em] text-vague-red sm:text-[8px]">
+                        {activeProduct.number} / {activeProduct.title}
+                      </span>
+                      <span className="text-[9px] font-black text-vague-black sm:text-[10px]">
+                        {activeProduct.priceFormatted}
+                      </span>
+                    </div>
 
-                      {/* Accent Line Highlight */}
-                      <path
-                        d={activeProduct.hotspot.linePath}
-                        fill="none"
-                        stroke={activeProduct.accent || "#F0C020"}
-                        strokeWidth="0.3"
-                        strokeDasharray="1 1"
-                      />
+                    <p className="mt-1 text-[10px] font-black uppercase leading-tight tracking-[-0.02em] text-vague-black sm:text-xs">
+                      {activeProduct.fullName}
+                    </p>
 
-                      {/* Solid Anchor Mark on Product */}
-                      <rect
-                        x={activeProduct.hotspot.anchor.x - 0.75}
-                        y={activeProduct.hotspot.anchor.y - 0.75}
-                        width="1.5"
-                        height="1.5"
-                        fill={activeProduct.accent || "#F0C020"}
-                        stroke="#121212"
-                        strokeWidth="0.4"
-                      />
-                    </svg>
-
-                    {/* Floating Product Name & Price Badge */}
-                    <motion.div
-                      style={{
-                        top: activeProduct.hotspot.card.top,
-                        left: activeProduct.hotspot.card.left,
-                      }}
-                      initial={{ opacity: 0, y: 10, scale: 0.92 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -5, scale: 0.92 }}
-                      transition={{ delay: 0.08, duration: 0.28 }}
+                    <button
+                      onClick={() => openProductModal(activeProduct)}
                       className="
-                        bauhaus-shadow
-                        absolute
-                        z-30
-                        w-auto
-                        min-w-[145px]
-                        max-w-[195px]
-                        border-[2.5px]
+                        mt-1.5
+                        inline-flex
+                        w-full
+                        items-center
+                        justify-between
+                        border-[1.5px]
                         border-vague-black
-                        bg-white
-                        p-2
-                        sm:min-w-[165px]
-                        sm:p-2.5
+                        bg-vague-yellow
+                        px-2
+                        py-1
+                        text-[8px]
+                        font-black
+                        uppercase
+                        tracking-wider
+                        text-vague-black
+                        transition-transform
+                        hover:-translate-y-0.5
+                        active:translate-y-0.5
+                        sm:text-[9px]
                       "
                     >
-                      <div className="flex items-center justify-between border-b border-vague-black/20 pb-1">
-                        <span className="text-[7px] font-black uppercase tracking-[0.16em] text-vague-red sm:text-[8px]">
-                          {activeProduct.number} / {activeProduct.title}
-                        </span>
-                        <span className="text-[9px] font-black text-vague-black sm:text-[10px]">
-                          {activeProduct.priceFormatted}
-                        </span>
-                      </div>
-
-                      <p className="mt-1 text-[10px] font-black uppercase leading-tight tracking-[-0.02em] text-vague-black sm:text-xs">
-                        {activeProduct.fullName}
-                      </p>
-
-                      <button
-                        onClick={() => openProductModal(activeProduct)}
-                        className="
-                          mt-1.5
-                          inline-flex
-                          w-full
-                          items-center
-                          justify-between
-                          border-[1.5px]
-                          border-vague-black
-                          bg-vague-yellow
-                          px-2
-                          py-1
-                          text-[8px]
-                          font-black
-                          uppercase
-                          tracking-wider
-                          text-vague-black
-                          transition-transform
-                          hover:-translate-y-0.5
-                          active:translate-y-0.5
-                          sm:text-[9px]
-                        "
-                      >
-                        <span>View Piece</span>
-                        <ArrowUpRight size={11} strokeWidth={3} />
-                      </button>
-                    </motion.div>
+                      <span>View Piece</span>
+                      <ArrowUpRight size={11} strokeWidth={3} />
+                    </button>
                   </motion.div>
                 )}
               </AnimatePresence>
